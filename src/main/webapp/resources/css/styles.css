@@ -1,0 +1,93 @@
+div {
+    display: block;
+}
+
+#login_wrapper {
+    background: #F3F3F3;
+    width: 671px;
+    height: 381px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+#login_header {
+    min-width: 671px;
+    height: 79px;
+    background: url(/resources/images/bg_header_bottom.png) repeat-x scroll left top #FFFFFF;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#login_body {
+    background: #FFFFFF;
+    border: 1px #E0E0E0 solid;
+    width: 570px;
+    margin: 50px 50px 50px 50px;
+}
+
+#app_label {
+    font-size: 15pt;
+    font-family: Verdana;
+}
+
+#error_label {
+    font-size: 10pt;
+    font-family: Verdana;
+    color: red;
+}
+
+#user_input {
+    background-position: 15px -83px;
+}
+
+#user_input:focus {
+    background-position: 15px -3px;
+}
+
+#password_input {
+    background-position: 15px -123px;
+}
+
+#password_input:focus {
+    background-position: 15px -43px;
+}
+
+.logo {
+    float: left;
+    background: none;
+    height: 78px;
+    width: 400px;
+}
+
+.input {
+    width: 414px;
+    height: 34px;
+    padding: 0 15px 0 47px;
+    line-height: 34px;
+    border: 1px #d1e7dc solid;
+    background: #fafcfb url(/resources/images/login.png) no-repeat;
+    font-size: 18px;
+    color: #595d5b;
+    margin-bottom: 20px;
+    font-family: Arial;
+}
+
+.button {
+    height: 36px;
+    background: #52ae41;
+    border-bottom: 7px #018435 solid;
+    border-right: 1px solid #4dad3a;
+    border-left: 1px solid #4dad3a;
+    border-top: 1px solid #4dad3a;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    padding: 0 20px;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.login_form {
+    margin-top: 10px;
+}

@@ -15,8 +15,8 @@
 
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/*"/>
-            <mvc:exclude-mapping path="/" />
+            <mvc:mapping path="/login"/>
+            <mvc:mapping path="/register"/>
             <bean id="authorizationInterceptor" class="Interceptors.AuthorizationInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

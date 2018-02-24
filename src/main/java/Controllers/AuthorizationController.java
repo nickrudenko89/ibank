@@ -25,7 +25,6 @@ public class AuthorizationController {
         for (int i = 0; i < cookies.length; i++) {
             Cookie cookie = cookies[i];
             if (Constants.Cookies.USER_ID_COOKIE_NAME.equals(cookie.getName()) && cookie.getValue().length() > 0) {
-                //TODO get user from DB
                 return "/index";
             }
         }
@@ -33,8 +32,8 @@ public class AuthorizationController {
     }
 
     @RequestMapping("/login")
-    public String login(@RequestParam(name = "login", required = false, defaultValue = "nick") String login,
-                        @RequestParam(name = "password", required = false, defaultValue = "123456") String password,
+    public String login(@RequestParam(name = "login", required = false, defaultValue = "") String login,
+                        @RequestParam(name = "password", required = false, defaultValue = "") String password,
                         Model model, HttpServletRequest request, HttpServletResponse response) {
         String contextPath = request.getContextPath();
         UserEntity user = userDao.getUserbyLoginAndPassword(login, password);
@@ -44,8 +43,10 @@ public class AuthorizationController {
             newCookie.setMaxAge(20);
             newCookie.setPath(contextPath);
             response.addCookie(newCookie);
+            return "/index";
         }
-        return "/index";
+        model.addAttribute("errorMsg", Constants.Errors.INCORRECT_LOGIN_OR_PASSWORD_ERROR);
+        return "/login";
     }
 
     @RequestMapping("/register")
