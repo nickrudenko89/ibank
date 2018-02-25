@@ -20,27 +20,37 @@ public class AuthorizationController {
     private UserDao userDao;
 
     @RequestMapping("/")
-    public String autoLogIn(HttpServletRequest request) {
+    public String autoLogIn(HttpServletRequest request, HttpServletResponse response, Model model) {
         Cookie[] cookies = request.getCookies();
-        for (int i = 0; i < cookies.length; i++) {
-            Cookie cookie = cookies[i];
-            if (Constants.Cookies.USER_ID_COOKIE_NAME.equals(cookie.getName()) && cookie.getValue().length() > 0) {
-                return "/index";
+        if (cookies != null) {
+            for (int i = 0; i < cookies.length; i++) {
+                Cookie cookie = cookies[i];
+                if (Constants.Cookies.USER_ID_COOKIE_NAME.equals(cookie.getName()) && cookie.getValue().length() > 0) {
+                    try {
+                        UserEntity user = userDao.getUserById(Integer.valueOf(cookie.getValue()));
+                        model.addAttribute("name", user.getLogin());
+                    } catch (Exception ex) {
+                        cookie.setMaxAge(Constants.Cookies.COOKIE_EXPIRE_TIME);
+                        response.addCookie(cookie);
+                        break;
+                    }
+                    return "/index";
+                }
             }
         }
         return "/login";
     }
 
     @RequestMapping("/login")
-    public String login(@RequestParam(name = "login", required = false, defaultValue = "") String login,
-                        @RequestParam(name = "password", required = false, defaultValue = "") String password,
+    public String login(@RequestParam(name = "login", required = false, defaultValue = "nick") String login,
+                        @RequestParam(name = "password", required = false, defaultValue = "123456") String password,
                         Model model, HttpServletRequest request, HttpServletResponse response) {
         String contextPath = request.getContextPath();
-        UserEntity user = userDao.getUserbyLoginAndPassword(login, password);
+        UserEntity user = userDao.getUserByLoginAndPassword(login, password);
         if (user != null) {
             model.addAttribute("name", user.getLogin());
             Cookie newCookie = new Cookie(Constants.Cookies.USER_ID_COOKIE_NAME, String.valueOf(user.getId()));
-            newCookie.setMaxAge(20);
+            newCookie.setMaxAge(Constants.Cookies.COOKIE_LIFETIME);
             newCookie.setPath(contextPath);
             response.addCookie(newCookie);
             return "/index";
@@ -52,5 +62,21 @@ public class AuthorizationController {
     @RequestMapping("/register")
     public String register() {
         return "/index";
+    }
+
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (int i = 0; i < cookies.length; i++) {
+                Cookie cookie = cookies[i];
+                if (Constants.Cookies.USER_ID_COOKIE_NAME.equals(cookie.getName()) && cookie.getValue().length() > 0) {
+                    cookie.setMaxAge(Constants.Cookies.COOKIE_EXPIRE_TIME);
+                    response.addCookie(cookie);
+                    break;
+                }
+            }
+        }
+        return "/login";
     }
 }

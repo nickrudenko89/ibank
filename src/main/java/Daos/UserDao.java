@@ -14,7 +14,14 @@ public class UserDao {
     @Resource(name = "sessionFactory")
     public SessionFactory sessionFactory;
 
-    public UserEntity getUserbyLoginAndPassword(String login, String password) {
+    public UserEntity getUserById(int id){
+        String messageHql = "FROM Message WHERE id = :id";
+        Query query = sessionFactory.getCurrentSession().createQuery(messageHql);
+        query.setParameter("id", id);
+        return (UserEntity) query.uniqueResult();
+    }
+
+    public UserEntity getUserByLoginAndPassword(String login, String password) {
         String messageHql = "FROM UserEntity WHERE login = :login AND password= :password";
         Query query = sessionFactory.getCurrentSession().createQuery(messageHql);
         query.setParameter("login", login);

@@ -2,6 +2,18 @@ div {
     display: block;
 }
 
+a {
+    outline: none;
+    text-decoration: none;
+}
+
+hr {
+    border: none;
+    background-color: #018435;
+    color: #018435;
+    height: 1px;
+}
+
 #login_wrapper {
     background: #F3F3F3;
     width: 671px;
@@ -53,11 +65,63 @@ div {
     background-position: 15px -43px;
 }
 
+#index_wrapper {
+    background-color: #FFFFFF;
+    margin: 0 auto;
+    padding: 0;
+}
+
+#index_header {
+    width: 100%;
+    height: 80px;
+    background-color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+}
+
 .logo {
     float: left;
     background: none;
     height: 78px;
     width: 400px;
+}
+
+.header_right {
+    float: right;
+    margin: 0;
+    padding: 0;
+}
+
+.time {
+    float: left;
+    width: 230px;
+    height: 50px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 50px;
+    color: #656966;
+    background: #EEEEEE;
+    margin: 14px 1px 0 0;
+}
+
+.logout {
+    float: left;
+    width: 116px;
+    height: 50px;
+    margin-top: 14px;
+}
+
+.profile {
+    float: left;
+    width: 120px;
+    height: 50px;
+    margin-top: 14px;
+}
+
+.user_session {
+    padding-left: 21px;
+    background: url(/resources/images/time.jpg) no-repeat left center;
+    font-family: Arial;
 }
 
 .input {
@@ -75,17 +139,45 @@ div {
 
 .button {
     height: 36px;
-    background: #52ae41;
+    background: #52AE41;
     border-bottom: 7px #018435 solid;
-    border-right: 1px solid #4dad3a;
-    border-left: 1px solid #4dad3a;
-    border-top: 1px solid #4dad3a;
+    border-right: 1px solid #4DAD3A;
+    border-left: 1px solid #4DAD3A;
+    border-top: 1px solid #4DAD3A;
     font-size: 14px;
     font-weight: bold;
-    color: #fff;
+    color: #FFFFFF;
     padding: 0 20px;
     cursor: pointer;
     margin-bottom: 5px;
+}
+
+.button_profile {
+    width: 120px;
+    height: 43px;
+    font-size: 16px;
+    color: #FFFFFF;
+    line-height: 43px;
+    text-align: center;
+    background: #4DAD3A;
+    border: none;
+    border-bottom: 7px #018435 solid;
+    display: block;
+    font-family: Arial, sans-serif;
+}
+
+.button_exit {
+    width: 120px;
+    height: 43px;
+    font-size: 16px;
+    color: #FFFFFF;
+    line-height: 43px;
+    text-align: center;
+    background: #E8AF3E;
+    border: none;
+    border-bottom: 7px #DF9B14 solid;
+    display: block;
+    font-family: Arial, sans-serif;
 }
 
 .login_form {

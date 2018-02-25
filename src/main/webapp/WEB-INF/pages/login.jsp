@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <!--<link rel="SHORTCUT ICON" href="/favicon.ico" type="image/x-icon">-->
     <link href="<c:url value="/resources/css/styles.css"/>" type="text/css" rel="stylesheet">
     <title>iBank login</title>
 </head>
@@ -35,7 +36,6 @@
             </form>
         </div>
     </div>
-
 </div>
 </body>
 </html>

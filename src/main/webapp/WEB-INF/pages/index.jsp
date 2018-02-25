@@ -2,39 +2,40 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <script type="text/javascript">
-        function startTimer() {
-            var my_timer = document.getElementById("my_timer");
-            var time = my_timer.innerHTML;
-            var arr = time.split(":");
-            var h = arr[0];
-            var m = arr[1];
-            var s = arr[2];
-            if (s == 0) {
-                if (m == 0) {
-                    if (h == 0) {
-                        //alert("Время вышло");
-                        window.location.replace("/");
-                        return;
-                    }
-                    h--;
-                    m = 60;
-                    if (h < 10) h = "0" + h;
-                }
-                m--;
-                if (m < 10) m = "0" + m;
-                s = 59;
-            }
-            else s--;
-            if (s < 10) s = "0" + s;
-            document.getElementById("my_timer").innerHTML = h+":"+m+":"+s;
-            setTimeout(startTimer, 1000);
-        }
-    </script>
+    <script type="text/javascript" src="/resources/js/timer.js"></script>
+    <link href="<c:url value="/resources/css/styles.css"/>" type="text/css" rel="stylesheet">
     <title>Hello Page</title>
 </head>
 <body onload="startTimer()">
-<p><span id="my_timer" style="color: #f00; font-size: 150%; font-weight: bold;">00:00:21</span></p>
-    <h2>Hello ${name}!</h2>
+<div id="index_wrapper">
+    <div id="index_header">
+        <div class="logo">
+            <table width="400">
+                <tr width="400">
+                    <td width="79">
+                        <img src="/resources/images/logo.png" width="76" height="76">
+                    </td>
+                    <td width="320">
+                        <label id="app_label">Интернет-банкинг</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="header_right">
+            <div class="time">
+                <span class="user_session"> До окончания сеанса <span id="timer">00:10:01</span></span>
+            </div>
+            <div class="profile">
+                <a class="button_profile" href="/profile">Профиль</a>
+            </div>
+            <div class="logout">
+                <a class="button_exit" href="/logout">Выход</a>
+            </div>
+        </div>
+    </div>
+    <div>
+        <hr>
+    </div>
+</div>
 </body>
 </html>

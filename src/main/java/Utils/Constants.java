@@ -3,6 +3,8 @@ package Utils;
 public final class Constants {
     public static final class Cookies {
         public static final String USER_ID_COOKIE_NAME = "ibank.userId";
+        public static final int COOKIE_LIFETIME = 600;
+        public static final int COOKIE_EXPIRE_TIME = 0;
     }
 
     public static final class ApplicationPages {
