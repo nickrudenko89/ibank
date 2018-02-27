@@ -4,14 +4,14 @@
 <head>
     <script type="text/javascript" src="/resources/js/timer.js"></script>
     <link href="<c:url value="/resources/css/styles.css"/>" type="text/css" rel="stylesheet">
-    <title>Hello Page</title>
+    <title>Система «Интернет-банкинг»</title>
 </head>
 <body onload="startTimer()">
 <div id="index_wrapper">
     <div id="index_header">
         <div class="logo">
             <table width="400">
-                <tr width="400">
+                <tr>
                     <td width="79">
                         <img src="/resources/images/logo.png" width="76" height="76">
                     </td>

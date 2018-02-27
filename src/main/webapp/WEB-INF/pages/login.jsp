@@ -2,16 +2,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <!--<link rel="SHORTCUT ICON" href="/favicon.ico" type="image/x-icon">-->
+    <link rel="SHORTCUT ICON" href="/resources/icons/favicon.ico" type="image/x-icon">
     <link href="<c:url value="/resources/css/styles.css"/>" type="text/css" rel="stylesheet">
-    <title>iBank login</title>
+    <title>Система «Интернет-банкинг»</title>
 </head>
 <body>
 <div id="login_wrapper">
     <div id="login_header">
         <div class="logo">
             <table width="400">
-                <tr width="400">
+                <tr>
                     <td width="79">
                         <img src="/resources/images/logo.png" width="76" height="76">
                     </td>
@@ -30,7 +30,8 @@
             <form method="POST" action="/login" class="login_form">
                 <input tabindex="1" class="input" id="user_input" type="text" name="login" value placeholder="Логин">
                 <br>
-                <input tabindex="2" class="input" id="password_input" type="password" name="password" value placeholder="Пароль">
+                <input tabindex="2" class="input" id="password_input" type="password" name="password" value
+                       placeholder="Пароль">
                 <br>
                 <input tabindex="3" class="button" type="submit" value="Войти">
             </form>

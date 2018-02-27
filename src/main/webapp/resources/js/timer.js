@@ -9,7 +9,7 @@ function startTimer() {
         if (minutes == 0) {
             if (hours == 0) {
                 //alert("Время вышло");
-                window.location.replace("/");
+                window.location.replace("/logout");
                 return;
             }
             hours--;
