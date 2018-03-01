@@ -40,12 +40,12 @@ hr {
 
 #app_label {
     font-size: 15pt;
-    font-family: Verdana;
+    font-family: Verdana, sans-serif;
 }
 
 #error_label {
     font-size: 10pt;
-    font-family: Verdana;
+    font-family: Verdana, sans-serif;
     color: red;
 }
 
@@ -121,7 +121,7 @@ hr {
 .user_session {
     padding-left: 21px;
     background: url(/resources/images/time.jpg) no-repeat left center;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
 }
 
 .input {
@@ -134,10 +134,10 @@ hr {
     font-size: 18px;
     color: #595d5b;
     margin-bottom: 20px;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
 }
 
-.button {
+.button_enter {
     height: 36px;
     background: #52AE41;
     border-bottom: 7px #018435 solid;
@@ -152,18 +152,22 @@ hr {
     margin-bottom: 5px;
 }
 
-.button_profile {
-    width: 120px;
-    height: 43px;
-    font-size: 16px;
+.button_register {
+    width: 144px;
+    height: 29px;
+    font-size: 14px;
     color: #FFFFFF;
-    line-height: 43px;
+    line-height: 29px;
     text-align: center;
-    background: #4DAD3A;
+    background: #52AE41;
     border: none;
     border-bottom: 7px #018435 solid;
     display: block;
     font-family: Arial, sans-serif;
+    font-weight: bold;
+    padding: 0 20px 0 20px;
+    cursor: pointer;
+    margin-bottom: 5px;
 }
 
 .button_exit {
@@ -180,6 +184,42 @@ hr {
     font-family: Arial, sans-serif;
 }
 
+.button_menu {
+    position: relative;
+    display: block;
+    min-height: 44px;
+    color: #fff;
+    font-size: 14px;
+    line-height: 44px;
+    text-decoration: none;
+    text-transform: uppercase;
+    background: #52AE41;
+    border-bottom: 5px #018435 solid;
+    margin-bottom: 10px;
+}
+
 .login_form {
     margin-top: 10px;
+}
+
+.left_menu {
+    float: left;
+    width: 25%;
+    max-width: 320px;
+    margin-right: 45px;
+    font-family: Verdana, sans-serif;
+}
+
+.button_text {
+    padding-top: 14px;
+    padding-left: 15px;
+    font-family: Verdana, sans-serif;
+    font-size: 14px;
+}
+
+.index_content {
+    float: left;
+    width: 66%;
+    max-width: 765px;
+    font-family: Verdana, sans-serif;
 }

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ProfileController {
     @RequestMapping("/profile")
     public String showProfile(HttpServletRequest request, HttpServletResponse response, Model model) {
+        model.addAttribute("path","/resources/imported_html/profile.html");
         return "/index";
     }
 

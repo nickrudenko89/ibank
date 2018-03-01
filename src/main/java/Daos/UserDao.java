@@ -15,7 +15,7 @@ public class UserDao {
     public SessionFactory sessionFactory;
 
     public UserEntity getUserById(int id) {
-        String messageHql = "FROM Message WHERE id = :id";
+        String messageHql = "FROM UserEntity WHERE id = :id";
         Query query = sessionFactory.getCurrentSession().createQuery(messageHql);
         query.setParameter("id", id);
         return (UserEntity) query.uniqueResult();

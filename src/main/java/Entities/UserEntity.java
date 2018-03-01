@@ -5,6 +5,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users")
 public class UserEntity {
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_profile", referencedColumnName = "id")
+    private ProfileEntity profile;
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +22,9 @@ public class UserEntity {
 
     @Column(name = "user_type", nullable = false)
     private int userType;
+
+    @Column(name = "id_profile", nullable = false)
+    private int idProfile;
 
     public int getId() {
         return id;
@@ -49,5 +56,21 @@ public class UserEntity {
 
     public void setUserType(int userType) {
         this.userType = userType;
+    }
+
+    public int getIdProfile() {
+        return idProfile;
+    }
+
+    public void setIdProfile(int idProfile) {
+        this.idProfile = idProfile;
+    }
+
+    public ProfileEntity getProfile() {
+        return profile;
+    }
+
+    public void setProfile(ProfileEntity profile) {
+        this.profile = profile;
     }
 }

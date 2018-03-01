@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
     <link rel="SHORTCUT ICON" href="/resources/icons/favicon.ico" type="image/x-icon">
     <link href="<c:url value="/resources/css/styles.css"/>" type="text/css" rel="stylesheet">
     <title>Система «Интернет-банкинг»</title>
@@ -33,7 +34,16 @@
                 <input tabindex="2" class="input" id="password_input" type="password" name="password" value
                        placeholder="Пароль">
                 <br>
-                <input tabindex="3" class="button" type="submit" value="Войти">
+                <table width="415">
+                    <tr>
+                        <td>
+                            <input tabindex="3" class="button_enter" type="submit" value="Войти">
+                        </td>
+                        <td style="float: right">
+                            <a class="button_register" href="/register">Зарегестрироваться</a>
+                        </td>
+                    </tr>
+                </table>
             </form>
         </div>
     </div>

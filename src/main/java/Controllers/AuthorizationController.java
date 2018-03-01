@@ -3,6 +3,7 @@ package Controllers;
 import Daos.UserDao;
 import Entities.UserEntity;
 import Utils.Constants;
+import Utils.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,10 +29,8 @@ public class AuthorizationController {
                 if (Constants.Cookies.USER_ID_COOKIE_NAME.equals(cookie.getName()) && cookie.getValue().length() > 0) {
                     try {
                         UserEntity user = userDao.getUserById(Integer.valueOf(cookie.getValue()));
-                        model.addAttribute("name", user.getLogin());
                     } catch (Exception ex) {
-                        cookie.setMaxAge(Constants.Cookies.COOKIE_EXPIRE_TIME);
-                        response.addCookie(cookie);
+                        CookieUtil.setCookie(cookie, Constants.Cookies.COOKIE_EXPIRE_TIME, response);
                         break;
                     }
                     return "/index";
@@ -50,9 +49,8 @@ public class AuthorizationController {
         if (user != null) {
             model.addAttribute("name", user.getLogin());
             Cookie newCookie = new Cookie(Constants.Cookies.USER_ID_COOKIE_NAME, String.valueOf(user.getId()));
-            newCookie.setMaxAge(Constants.Cookies.COOKIE_LIFETIME);
             newCookie.setPath(contextPath);
-            response.addCookie(newCookie);
+            CookieUtil.setCookie(newCookie, Constants.Cookies.COOKIE_LIFETIME, response);
             return "/index";
         }
         model.addAttribute("errorMsg", Constants.Errors.INCORRECT_LOGIN_OR_PASSWORD_ERROR);
@@ -71,8 +69,7 @@ public class AuthorizationController {
             for (int i = 0; i < cookies.length; i++) {
                 Cookie cookie = cookies[i];
                 if (Constants.Cookies.USER_ID_COOKIE_NAME.equals(cookie.getName()) && cookie.getValue().length() > 0) {
-                    cookie.setMaxAge(Constants.Cookies.COOKIE_EXPIRE_TIME);
-                    response.addCookie(cookie);
+                    CookieUtil.setCookie(cookie, Constants.Cookies.COOKIE_EXPIRE_TIME, response);
                     break;
                 }
             }
