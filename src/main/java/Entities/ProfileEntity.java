@@ -7,7 +7,7 @@ import java.util.Date;
 @Table(name = "profiles")
 public class ProfileEntity {
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "profiles")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "profile")
     private UserEntity userEntity;
 
     @Id
