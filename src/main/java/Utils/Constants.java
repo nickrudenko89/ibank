@@ -16,8 +16,11 @@ public final class Constants {
         public static final String INCORRECT_LOGIN_OR_PASSWORD_ERROR = "Неверный логин или пароль.";
     }
 
-    public static final class RequestMethods {
-        public static final String GET_METHOD = "GET";
-        public static final String POST_METHOD = "POST";
+    public static final class Strings {
+        public static final String EMPTY_STRING = "";
+    }
+
+    public static final class UserProfile {
+        public static final int PROFILE_FIELDS_COUNT = 8;
     }
 }

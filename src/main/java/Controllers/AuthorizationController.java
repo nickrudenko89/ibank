@@ -22,20 +22,12 @@ public class AuthorizationController {
 
     @RequestMapping("/")
     public String autoLogIn(HttpServletRequest request, HttpServletResponse response, Model model) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (int i = 0; i < cookies.length; i++) {
-                Cookie cookie = cookies[i];
-                if (Constants.Cookies.USER_ID_COOKIE_NAME.equals(cookie.getName()) && cookie.getValue().length() > 0) {
-                    try {
-                        UserEntity user = userDao.getUserById(Integer.valueOf(cookie.getValue()));
-                    } catch (Exception ex) {
-                        CookieUtil.setCookie(cookie, Constants.Cookies.COOKIE_EXPIRE_TIME, response);
-                        break;
-                    }
-                    return "/index";
-                }
-            }
+        Cookie cookie = CookieUtil.getBankCookie(request, response);
+        if (cookie != null) {
+            UserEntity user = userDao.getUserById(Integer.valueOf(cookie.getValue()));
+            model.addAttribute("userName", user.getProfile().getLastName() + " " + user.getProfile().getFirstName());
+            CookieUtil.setCookie(cookie, Constants.Cookies.COOKIE_LIFETIME, response);
+            return "/index";
         }
         return "/login";
     }
@@ -47,7 +39,7 @@ public class AuthorizationController {
         String contextPath = request.getContextPath();
         UserEntity user = userDao.getUserByLoginAndPassword(login, password);
         if (user != null) {
-            model.addAttribute("name", user.getLogin());
+            model.addAttribute("userName", user.getProfile().getLastName() + " " + user.getProfile().getFirstName());
             Cookie newCookie = new Cookie(Constants.Cookies.USER_ID_COOKIE_NAME, String.valueOf(user.getId()));
             newCookie.setPath(contextPath);
             CookieUtil.setCookie(newCookie, Constants.Cookies.COOKIE_LIFETIME, response);
@@ -64,16 +56,9 @@ public class AuthorizationController {
 
     @RequestMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (int i = 0; i < cookies.length; i++) {
-                Cookie cookie = cookies[i];
-                if (Constants.Cookies.USER_ID_COOKIE_NAME.equals(cookie.getName()) && cookie.getValue().length() > 0) {
-                    CookieUtil.setCookie(cookie, Constants.Cookies.COOKIE_EXPIRE_TIME, response);
-                    break;
-                }
-            }
-        }
+        Cookie cookie = CookieUtil.getBankCookie(request, response);
+        if (cookie != null)
+            CookieUtil.setCookie(cookie, Constants.Cookies.COOKIE_EXPIRE_TIME, response);
         return "/login";
     }
 }

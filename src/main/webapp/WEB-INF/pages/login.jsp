@@ -28,7 +28,7 @@
             <label id="error_label">${errorMsg}</label>
         </div>
         <div style="margin-left: 79px">
-            <form method="POST" action="/login" class="login_form">
+            <form method="POST" action="/login" class="user_form">
                 <input tabindex="1" class="input" id="user_input" type="text" name="login" value placeholder="Логин">
                 <br>
                 <input tabindex="2" class="input" id="password_input" type="password" name="password" value

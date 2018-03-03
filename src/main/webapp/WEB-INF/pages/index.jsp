@@ -1,7 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
 <html>
 <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <script type="text/javascript" src="/resources/js/timer.js"></script>
     <link rel="SHORTCUT ICON" href="/resources/icons/favicon.ico" type="image/x-icon">
     <link href="<c:url value="/resources/css/styles.css"/>" type="text/css" rel="stylesheet">
@@ -39,7 +40,7 @@
             <tr>
                 <td>
                     <p><span>Добро пожаловать,</span></p>
-                    <span style="font-size: 14px; font-weight: bold; text-transform: uppercase">Ник Ник</span>
+                    <span style="font-size: 14px; font-weight: bold; text-transform: uppercase">${userName}</span>
                 </td>
             </tr>
             <tr>

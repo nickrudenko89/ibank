@@ -28,4 +28,8 @@ public class UserDao {
         query.setParameter("password", password);
         return (UserEntity) query.uniqueResult();
     }
+
+    public void update(UserEntity user) {
+        sessionFactory.getCurrentSession().update(user);
+    }
 }

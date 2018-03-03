@@ -79,6 +79,21 @@ hr {
     padding: 0;
 }
 
+#profile_name {
+    background: #E0E0E0;
+    height: 50px;
+    text-align: center;
+    font-size: 20px;
+    line-height: 50px;
+    margin-top: 10px;
+}
+
+#profile_info {
+    background: #EEEEEE;
+    margin-top: 0;
+    font-size: 16px;
+}
+
 .logo {
     float: left;
     background: none;
@@ -188,7 +203,7 @@ hr {
     position: relative;
     display: block;
     min-height: 44px;
-    color: #fff;
+    color: #FFF;
     font-size: 14px;
     line-height: 44px;
     text-decoration: none;
@@ -198,7 +213,7 @@ hr {
     margin-bottom: 10px;
 }
 
-.login_form {
+.user_form {
     margin-top: 10px;
 }
 
@@ -222,4 +237,62 @@ hr {
     width: 66%;
     max-width: 765px;
     font-family: Verdana, sans-serif;
+}
+
+.edit_profile_input {
+    width: 410px;
+    height: 34px;
+    padding: 0 0 0 10px;
+    line-height: 34px;
+    border: 1px #d1e7dc solid;
+    font-size: 18px;
+    color: #000000;
+    margin-top: 20px;
+    margin-right: 80px;
+    float: right;
+    font-family: Arial, sans-serif;
+}
+
+.edit_profile_label {
+    float: left;
+    margin-left: 80px;
+    margin-top: 20px;
+}
+
+.button_save {
+    height: 36px;
+    background: #52AE41;
+    border-bottom: 7px #018435 solid;
+    border-right: 1px solid #4DAD3A;
+    border-left: 1px solid #4DAD3A;
+    border-top: 1px solid #4DAD3A;
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFFFFF;
+    padding: 0 20px;
+    cursor: pointer;
+    float: left;
+    margin-left: 80px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.button_cancel {
+    width: 117px;
+    height: 29px;
+    font-size: 14px;
+    color: #FFFFFF;
+    line-height: 29px;
+    text-align: center;
+    background: #52AE41;
+    border: none;
+    border-bottom: 7px #018435 solid;
+    display: block;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    float: right;
+    margin-right: 80px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
