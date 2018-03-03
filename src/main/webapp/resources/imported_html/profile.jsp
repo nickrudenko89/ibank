@@ -3,7 +3,7 @@
     <table style="height: 50px; width: 765px; text-align: center; font-size: 20px">
         <tr>
             <td style="width: 725px">
-                <span>${user.profile.firstName} ${user.profile.lastName}</span>
+                <span>${profile.firstName} ${profile.lastName}</span>
             </td>
             <td>
                 <a href="/editProfile"><img src="/resources/images/edit.jpg" width="40px"/></a>
@@ -26,7 +26,7 @@
                 <span><b>Номер пасспорта: </b></span>
             </td>
             <td>
-                <span>${user.profile.passportNumber}</span>
+                <span>${profile.passportNumber}</span>
             </td>
         </tr>
         <tr>
@@ -34,7 +34,7 @@
                 <span><b>Адрес: </b></span>
             </td>
             <td>
-                <span>${user.profile.address}</span>
+                <span>${profile.address}</span>
             </td>
         </tr>
         <tr>
@@ -42,7 +42,7 @@
                 <span><b>Телефон: </b></span>
             </td>
             <td>
-                <span>${user.profile.telephoneNumber}</span>
+                <span>${profile.telephoneNumber}</span>
             </td>
         </tr>
         <tr>
@@ -50,7 +50,7 @@
                 <span><b>Почта: </b></span>
             </td>
             <td>
-                <span>${user.profile.email}</span>
+                <span>${profile.email}</span>
             </td>
         </tr>
     </table>

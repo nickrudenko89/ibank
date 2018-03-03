@@ -1,6 +1,7 @@
 package Entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -23,6 +24,9 @@ public class UserEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_profile")
     private ProfileEntity profile;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    private List<AccountEntity> accounts;
 
     public int getId() {
         return id;
@@ -62,5 +66,13 @@ public class UserEntity {
 
     public void setProfile(ProfileEntity profile) {
         this.profile = profile;
+    }
+
+    public List<AccountEntity> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<AccountEntity> accounts) {
+        this.accounts = accounts;
     }
 }

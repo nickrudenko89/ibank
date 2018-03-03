@@ -1,6 +1,8 @@
 package Controllers;
 
+import Daos.ProfileDao;
 import Daos.UserDao;
+import Entities.ProfileEntity;
 import Entities.UserEntity;
 import Services.UserService;
 import Utils.Constants;
@@ -23,17 +25,19 @@ public class ProfileController {
     @Autowired
     private UserDao userDao;
     @Autowired
+    private ProfileDao profileDao;
+    @Autowired
     private UserService userService;
 
     @RequestMapping("/profile")
     public String showProfile(HttpServletRequest request, HttpServletResponse response, Model model) {
         Cookie cookie = CookieUtil.getBankCookie(request, response);
         if (cookie != null) {
-            UserEntity user = userDao.getUserById(Integer.valueOf(cookie.getValue()));
+            ProfileEntity profile = profileDao.getProfileById(Integer.valueOf(cookie.getValue()));
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-            model.addAttribute("user", user);
-            model.addAttribute("userName", user.getProfile().getLastName() + " " + user.getProfile().getFirstName());
-            model.addAttribute("birthDate", dateFormat.format(user.getProfile().getBirthDate()));
+            model.addAttribute("profile", profile);
+            model.addAttribute("userName", profile.getLastName() + " " + profile.getFirstName());
+            model.addAttribute("birthDate", dateFormat.format(profile.getBirthDate()));
             model.addAttribute("path", "/resources/imported_html/profile.jsp");
             return "/index";
         }
