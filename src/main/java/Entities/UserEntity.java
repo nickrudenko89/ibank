@@ -22,10 +22,10 @@ public class UserEntity {
     private int userType;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_profile")
+    @JoinColumn(name = "profile_id")
     private ProfileEntity profile;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<AccountEntity> accounts;
 
     public int getId() {

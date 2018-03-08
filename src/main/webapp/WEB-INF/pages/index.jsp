@@ -45,7 +45,7 @@
             </tr>
             <tr>
                 <td>
-                    <a class="button_menu" href="/accounts"><span class="button_text">Счета</span></a>
+                    <a class="button_menu" style="margin-top: 10px" href="/accounts"><span class="button_text">Счета</span></a>
                 </td>
             </tr>
             <tr>

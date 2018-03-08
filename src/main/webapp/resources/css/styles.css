@@ -94,6 +94,12 @@ hr {
     font-size: 16px;
 }
 
+#accounts_wrapper {
+    background: #FFFFFF;
+    margin: 0;
+    padding: 0;
+}
+
 .logo {
     float: left;
     background: none;
@@ -295,4 +301,104 @@ hr {
     margin-right: 80px;
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+.account {
+    width: 610px;
+    height: 50px;
+    padding: 0 0 0 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    line-height: 50px;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    background: #E8AF3E;
+    border: none;
+    border-bottom: 7px #DF9B14 solid;
+    display: inline-block;
+}
+
+.button_open_account {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    background: #E8AF3E;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    display: inline-block;
+    cursor: default;
+    color: #000000;
+    text-align: center;
+    border: none;
+    border-bottom: 7px #DF9B14 solid;
+    float: right;
+}
+
+.button_open_account:hover {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    background: #52AE41;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    display: inline-block;
+    cursor: default;
+    color: #FFFFFF;
+    text-align: center;
+    border: none;
+    border-bottom: 7px #018435 solid;
+    float: right;
+}
+
+.button_close_account {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    background: #E8AF3E;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    display: inline-block;
+    cursor: default;
+    color: #000000;
+    text-align: center;
+    border: none;
+    border-bottom: 7px #DF9B14 solid;
+    float: right;
+}
+
+.button_close_account:hover {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    background: #FF0000;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    display: inline-block;
+    cursor: default;
+    color: #FFFFFF;
+    text-align: center;
+    border: none;
+    border-bottom: 7px #8B0000 solid;
+    float: right;
+}
+
+.request {
+    margin-top: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 22px;
+    color: #DF9B14;
+}
+
+.request_user {
+    margin-top: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+.currency_input {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    display: block;
 }

@@ -15,11 +15,36 @@ public class AccountDao {
     @Resource(name = "sessionFactory")
     public SessionFactory sessionFactory;
 
-    public List<AccountEntity> getAccountsByUserId(int id) {
-        String messageHql = "FROM ProfileEntity WHERE id = :id";
+    public AccountEntity getAccountById(int id) {
+        String messageHql = "FROM AccountEntity WHERE id = :id";
         Query query = sessionFactory.getCurrentSession().createQuery(messageHql);
         query.setParameter("id", id);
-        return (List<AccountEntity>) query.getResultList();
+        return (AccountEntity) query.uniqueResult();
     }
 
+    public AccountEntity getAccountByAccountNumber(String accountNumber) {
+        String messageHql = "FROM AccountEntity WHERE accountNumber = :accountNumber";
+        Query query = sessionFactory.getCurrentSession().createQuery(messageHql);
+        query.setParameter("accountNumber", accountNumber);
+        return (AccountEntity) query.uniqueResult();
+    }
+
+    public List<AccountEntity> getAccountsByStatus(int status) {
+        String messageHql = "FROM AccountEntity WHERE status = :status";
+        Query query = sessionFactory.getCurrentSession().createQuery(messageHql);
+        query.setParameter("status", status);
+        return query.list();
+    }
+
+    public void updateAccount(AccountEntity account) {
+        sessionFactory.getCurrentSession().update(account);
+    }
+
+    public void insertAccount(AccountEntity account) {
+        sessionFactory.getCurrentSession().save(account);
+    }
+
+    public void deleteAccount(AccountEntity account) {
+        sessionFactory.getCurrentSession().delete(account);
+    }
 }

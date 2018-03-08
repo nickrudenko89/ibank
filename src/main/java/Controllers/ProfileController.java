@@ -105,11 +105,16 @@ public class ProfileController {
     }
 
     @RequestMapping("/cancelProfile")
-    public String cancelChangesInProfile(HttpServletResponse response, Model model) {
+    public String cancelChangesInProfile(HttpServletRequest request, HttpServletResponse response, Model model) {
         try {
             response.sendRedirect("/profile");
         } catch (IOException e) {
-            model.addAttribute("path", "/resources/imported_html/blank.html");
+            Cookie cookie = CookieUtil.getBankCookie(request, response);
+            if (cookie != null) {
+                UserEntity user = userDao.getUserById(Integer.valueOf(cookie.getValue()));
+                model.addAttribute("userName", user.getProfile().getLastName() + " " + user.getProfile().getFirstName());
+                model.addAttribute("path", "/resources/imported_html/blank.html");
+            }
         }
         return "/index";
     }
