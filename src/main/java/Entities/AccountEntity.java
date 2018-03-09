@@ -28,9 +28,9 @@ public class AccountEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     private List<HistoryEntity> history;
-*/
+
     public int getId() {
         return id;
     }
@@ -78,12 +78,12 @@ public class AccountEntity {
     public void setUser(UserEntity user) {
         this.user = user;
     }
-/*
+
     public List<HistoryEntity> getHistory() {
         return history;
     }
 
     public void setHistory(List<HistoryEntity> history) {
         this.history = history;
-    }*/
+    }
 }

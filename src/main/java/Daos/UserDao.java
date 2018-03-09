@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 @Transactional
 public class UserDao {
     @Resource(name = "sessionFactory")
-    public SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     public UserEntity getUserById(int id) {
         String messageHql = "FROM UserEntity WHERE id = :id";

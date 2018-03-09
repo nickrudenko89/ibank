@@ -13,7 +13,7 @@ import java.util.List;
 @Transactional
 public class AccountDao {
     @Resource(name = "sessionFactory")
-    public SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     public AccountEntity getAccountById(int id) {
         String messageHql = "FROM AccountEntity WHERE id = :id";

@@ -26,6 +26,7 @@
             <mvc:mapping path="/closeAccount"/>
             <mvc:mapping path="/createNewAccount"/>
             <mvc:mapping path="/account"/>
+            <mvc:mapping path="/payments"/>
             <bean id="authorizationInterceptor" class="Interceptors.AuthorizationInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
