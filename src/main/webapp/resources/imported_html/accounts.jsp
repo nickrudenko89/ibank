@@ -7,7 +7,7 @@
         </div>
         <c:forEach items="${accountsToOpen}" var="account">
             <div class="request_user">
-                <span><b>Пользователь: </b>${account.userId.profile.lastName} ${account.userId.profile.firstName}</span>
+                <span><b>Пользователь: </b>${account.user.profile.lastName} ${account.user.profile.firstName}</span>
             </div>
             <div class="account" id="${account.id}" style="display: inline-block">
                 <span style="margin-left: 10px">${account.accountNumber}</span>
@@ -20,7 +20,7 @@
         </div>
         <c:forEach items="${accountsToClose}" var="account">
             <div class="request_user">
-                <span><b>Пользователь: </b>${account.userId.profile.lastName} ${account.userId.profile.firstName}</span>
+                <span><b>Пользователь: </b>${account.user.profile.lastName} ${account.user.profile.firstName}</span>
             </div>
             <div class="account" id="${account.id}" style="display: inline-block">
                 <span style="margin-left: 10px">${account.accountNumber}</span>

@@ -163,7 +163,6 @@ public class AccountsController {
         AccountEntity account = accountDao.getAccountById(accountId);
         if (account != null) {
             if (account.getStatus() == accountStatus) {
-                account.setUser(null);
                 accountDao.deleteAccount(account);
             }
         }
