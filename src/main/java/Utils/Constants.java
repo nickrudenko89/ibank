@@ -15,6 +15,9 @@ public final class Constants {
     public static final class Errors {
         public static final String INCORRECT_LOGIN_OR_PASSWORD_ERROR = "Неверный логин или пароль.";
         public static final String ACCOUNT_BALANCE_ERROR = "Закрытие счета невозможно, так как баланс счета не нулевой.";
+        public static final String PAYMENT_SUM_ERROR = "Введенная сумма некорректна.";
+        public static final String NOT_ENOUGH_MONEY_ERROR = "На счету недостаточно денег для оплаты.";
+        public static final String INCORRECT_ACCOUNT_ERROR = "Выберите счет для оплаты.";
     }
 
     public static final class Messages {
@@ -24,6 +27,9 @@ public final class Constants {
 
     public static final class Strings {
         public static final String EMPTY_STRING = "";
+        public static final String ONE = "1";
+        public static final String TWO = "2";
+        public static final String THREE = "3";
     }
 
     public static final class UserProfile {

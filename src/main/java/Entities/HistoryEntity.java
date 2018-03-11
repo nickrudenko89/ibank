@@ -25,7 +25,7 @@ public class HistoryEntity {
     private Date date;
 
     @Column(name = "sum")
-    private long sum;
+    private float sum;
 
     public int getId() {
         return id;
@@ -59,11 +59,11 @@ public class HistoryEntity {
         this.date = date;
     }
 
-    public long getSum() {
+    public float getSum() {
         return sum;
     }
 
-    public void setSum(long sum) {
+    public void setSum(float sum) {
         this.sum = sum;
     }
 }

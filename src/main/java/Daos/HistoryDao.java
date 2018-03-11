@@ -1,5 +1,6 @@
 package Daos;
 
+import Entities.HistoryEntity;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
@@ -11,4 +12,9 @@ import javax.transaction.Transactional;
 public class HistoryDao {
     @Resource(name = "sessionFactory")
     private SessionFactory sessionFactory;
+
+    public void insert(HistoryEntity historyEntity) {
+        sessionFactory.getCurrentSession().save(historyEntity);
+    }
+
 }

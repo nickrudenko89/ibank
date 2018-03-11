@@ -28,6 +28,7 @@ public class UserService {
         checkedFields.add(checkForEmptyField(passportNumber));
         checkedFields.add(checkForEmptyField(address));
         checkedFields.add(checkForEmptyField(telephoneNumber));
+        //TODO проверка мэйла по регулярке
         checkedFields.add(checkForEmptyField(email));
         model.addAttribute("checkedFields", checkedFields);
         for (Boolean isFilled : checkedFields) {

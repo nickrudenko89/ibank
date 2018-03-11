@@ -45,7 +45,8 @@
             </tr>
             <tr>
                 <td>
-                    <a class="button_menu" style="margin-top: 10px" href="/accounts"><span class="button_text">Счета</span></a>
+                    <a class="button_menu" style="margin-top: 10px" href="/accounts"><span
+                            class="button_text">Счета</span></a>
                 </td>
             </tr>
             <tr>
@@ -70,7 +71,7 @@
         <c:if test="${path==null}">
             <c:set var="path" value="/resources/imported_html/blank.html"/>
         </c:if>
-        <jsp:include page="${path}" />
+        <jsp:include page="${path}"/>
     </div>
 </div>
 </body>

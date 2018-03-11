@@ -5,7 +5,7 @@
         <form action="/createNewAccount" method="post">
             <label for="currency_input">Открытие счета</label>
             <select id="currency_input" class="currency_input" name="currency">
-                <option disabled selected>Выберите вылюту вклада</option>
+                <option disabled selected>Выберите вылюту счета</option>
                 <c:forEach items="${currencies}" var="currency">
                     <option>${currency}</option>
                 </c:forEach>

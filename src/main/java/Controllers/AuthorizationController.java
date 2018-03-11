@@ -45,6 +45,7 @@ public class AuthorizationController {
             CookieUtil.setCookie(newCookie, Constants.Cookies.COOKIE_LIFETIME, response);
             return "/index";
         }
+        //TODO проверочный код на мэйл
         model.addAttribute("errorMsg", Constants.Errors.INCORRECT_LOGIN_OR_PASSWORD_ERROR);
         return "/login";
     }

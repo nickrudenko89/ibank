@@ -19,7 +19,7 @@ public class AccountEntity {
     private String currency;
 
     @Column(name = "balance")
-    private long balance;
+    private float balance;
 
     @Column(name = "status")
     private int status;
@@ -55,11 +55,11 @@ public class AccountEntity {
         this.currency = currency;
     }
 
-    public long getBalance() {
+    public float getBalance() {
         return balance;
     }
 
-    public void setBalance(long balance) {
+    public void setBalance(float balance) {
         this.balance = balance;
     }
 

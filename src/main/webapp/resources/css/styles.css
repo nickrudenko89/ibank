@@ -101,9 +101,17 @@ hr {
 }
 
 #payments_wrapper {
-    background: #FFFFFF;
-    padding: 0;
+    width: 390px;
+    background: #EEEEEE;
+    padding: 25px;
     margin-top: 10px;
+}
+
+#button_history {
+    background: #E8AF3E;
+    border: none;
+    border-bottom: 7px #DF9B14 solid;
+    margin-bottom: 25px;
 }
 
 .logo {
@@ -407,4 +415,51 @@ hr {
     margin-top: 30px;
     margin-bottom: 10px;
     display: block;
+}
+
+.button_payment {
+    width: 350px;
+    height: 40px;
+    font-size: 16px;
+    color: #FFFFFF;
+    line-height: 40px;
+    text-align: center;
+    background: #52AE41;
+    border: none;
+    border-bottom: 7px #018435 solid;
+    display: block;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    padding: 0 20px 0 20px;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.payment_input {
+    width: 300px;
+    height: 34px;
+    line-height: 34px;
+    border: 1px #d1e7dc solid;
+    font-size: 16px;
+    color: #000000;
+    float: right;
+    font-family: Arial, sans-serif;
+    padding-left: 10px;
+}
+
+.payment_label {
+    float: left;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+.payment_currency {
+    margin-left: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    width: 40px;
+    float: right;
+    height: 34px;
+    line-height: 34px;
+    color: black
 }

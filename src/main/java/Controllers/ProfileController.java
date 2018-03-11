@@ -7,6 +7,7 @@ import Entities.UserEntity;
 import Services.UserService;
 import Utils.Constants;
 import Utils.CookieUtil;
+import Utils.RedirectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -94,28 +94,15 @@ public class ProfileController {
             userService.changeField(user, user.getProfile().getTelephoneNumber(), telephoneNumber, 6);
             userService.changeField(user, user.getProfile().getEmail(), email, 7);
             userDao.update(user);
-            try {
-                response.sendRedirect("/profile");
-            } catch (IOException e) {
-                model.addAttribute("path", "/resources/imported_html/blank.html");
-                return "/index";
-            }
+            RedirectUtil.RedirectToPage("/profile", userDao, request, response, model);
+            return "/index";
         }
         return "/login";
     }
 
     @RequestMapping("/cancelProfile")
     public String cancelChangesInProfile(HttpServletRequest request, HttpServletResponse response, Model model) {
-        try {
-            response.sendRedirect("/profile");
-        } catch (IOException e) {
-            Cookie cookie = CookieUtil.getBankCookie(request, response);
-            if (cookie != null) {
-                UserEntity user = userDao.getUserById(Integer.valueOf(cookie.getValue()));
-                model.addAttribute("userName", user.getProfile().getLastName() + " " + user.getProfile().getFirstName());
-                model.addAttribute("path", "/resources/imported_html/blank.html");
-            }
-        }
+        RedirectUtil.RedirectToPage("/profile", userDao, request, response, model);
         return "/index";
     }
 }
