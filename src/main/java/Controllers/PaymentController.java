@@ -8,11 +8,10 @@ import Entities.AccountEntity;
 import Entities.HistoryEntity;
 import Entities.PaymentEntity;
 import Entities.UserEntity;
+import Enums.UserTypeEnum;
 import Services.PaymentService;
-import Utils.Constants;
-import Utils.CookieUtil;
-import Utils.RedirectUtil;
-import Utils.UriUtil;
+import Services.UserService;
+import Utils.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,45 +26,46 @@ import java.util.List;
 
 @Controller
 public class PaymentController {
+//    @Autowired
+//    private UserDao userDao;
+//    @Autowired
+//    private PaymentDao paymentDao;
+//    @Autowired
+//    private AccountDao accountDao;
+//    @Autowired
+//    private HistoryDao historyDao;
     @Autowired
-    UserDao userDao;
+    private UserService userService;
     @Autowired
-    PaymentDao paymentDao;
+    private PaymentService paymentService;
     @Autowired
-    AccountDao accountDao;
-    @Autowired
-    HistoryDao historyDao;
-    @Autowired
-    PaymentService paymentService;
+    private RedirectHelper redirectHelper;
 
     @RequestMapping("/payments")
-    public String showPayments(HttpServletRequest request, HttpServletResponse response, Model model) {
-        Cookie cookie = CookieUtil.getBankCookie(request, response);
-        if (cookie != null) {
-            UserEntity user = userDao.getUserById(Integer.valueOf(cookie.getValue()));
-            List<PaymentEntity> payments = paymentDao.getAllPayments();
-            model.addAttribute("userName", user.getProfile().getLastName() + " " + user.getProfile().getFirstName());
-            switch (user.getUserType()) {
-                case Constants.UserType.BANK_CLIENT:
-                    model.addAttribute("url", "/doPayment?action=pay");
-                    break;
-                case Constants.UserType.BANK_EMPLOYEE:
-                    model.addAttribute("url", "/doPayment?action=edit");
-                    break;
-            }
-            model.addAttribute("clientId", Constants.UserType.BANK_CLIENT);
-            model.addAttribute("userType", user.getUserType());
-            model.addAttribute("payments", payments);
-            model.addAttribute("path", "/resources/imported_html/payments.jsp");
+    public String showPayments(HttpServletRequest request, Model model) {
+        Cookie cookie = CookieUtil.getBankCookie(request);
+        UserEntity user = userService.getLoggedUser(Integer.valueOf(cookie.getValue()));
+        model.addAttribute("userName", UserUtil.getUserName(user));
+        switch (userService.getUserTypeByIndex(user.getUserType())) {
+            case CLIENT:
+                model.addAttribute("url", "/doPayment?action=pay");
+                break;
+            case EMPLOYEE:
+                model.addAttribute("url", "/doPayment?action=edit");
+                break;
         }
+        model.addAttribute("clientId", UserTypeEnum.CLIENT.getIndex());
+        model.addAttribute("userType", user.getUserType());
+        model.addAttribute("payments", paymentService.getAllPayments());
+        model.addAttribute("path", "/resources/imported_html/payments.jsp");
         return "/index";
     }
-
+    /* TODO
     @RequestMapping("/doPayment")
-    public String editPayment(@RequestParam(name = "action", required = false, defaultValue = "") String paymentAction,
-                              @RequestParam(name = "id", required = false, defaultValue = "0") int paymentId,
-                              @RequestParam(name = "error", required = false, defaultValue = "") String paymentErrorId,
-                              HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String doPayment(@RequestParam(name = "action", required = false, defaultValue = "") String paymentAction,
+                            @RequestParam(name = "id", required = false, defaultValue = "0") int paymentId,
+                            @RequestParam(name = "error", required = false, defaultValue = "") String paymentErrorId,
+                            HttpServletRequest request, HttpServletResponse response, Model model) {
         int userType;
         String jspUrl;
         String requestUri;
@@ -78,30 +78,28 @@ public class PaymentController {
             jspUrl = "/resources/imported_html/edit_payment.jsp";
             userType = Constants.UserType.BANK_EMPLOYEE;
         } else {
-            RedirectUtil.RedirectToPage("/payments", userDao, request, response, model);
+            redirectHelper.RedirectToPage("/payments", request, response, model);
             return "/index";
         }
         paymentError = paymentService.getPaymentErrorById(paymentErrorId);
-        Cookie cookie = CookieUtil.getBankCookie(request, response);
-        if (cookie != null) {
-            UserEntity user = userDao.getUserById(Integer.valueOf(cookie.getValue()));
-            model.addAttribute("userName", user.getProfile().getLastName() + " " + user.getProfile().getFirstName());
-            if (user.getUserType() == userType) {
-                PaymentEntity payment = paymentDao.getPaymentById(paymentId);
-                if (payment != null) {
-                    if (user.getUserType() == Constants.UserType.BANK_CLIENT) {
-                        model.addAttribute("accounts", user.getAccounts());
-                        model.addAttribute("openedAccountStatus", Constants.BankAccount.OPENED_ACCOUNT);
-                        model.addAttribute("requestUri", requestUri);
-                        model.addAttribute("error", paymentError);
-                    }
-                    model.addAttribute("payment", payment);
-                    model.addAttribute("path", jspUrl);
-                    return "/index";
+        Cookie cookie = CookieUtil.getBankCookie(request);
+        UserEntity user = userDao.getUserById(Integer.valueOf(cookie.getValue()));
+        model.addAttribute("userName", UserUtil.getUserName(user));
+        if (user.getUserType() == userType) {
+            PaymentEntity payment = paymentDao.getPaymentById(paymentId);
+            if (payment != null) {
+                if (user.getUserType() == Constants.UserType.BANK_CLIENT) {
+                    model.addAttribute("accounts", user.getAccounts());
+                    model.addAttribute("openedAccountStatus", Constants.BankAccount.OPENED_ACCOUNT);
+                    model.addAttribute("requestUri", requestUri);
+                    model.addAttribute("error", paymentError);
                 }
+                model.addAttribute("payment", payment);
+                model.addAttribute("path", jspUrl);
+                return "/index";
             }
         }
-        RedirectUtil.RedirectToPage("/payments", userDao, request, response, model);
+        redirectHelper.RedirectToPage("/payments", request, response, model);
         return "/index";
     }
 
@@ -109,19 +107,17 @@ public class PaymentController {
     public String confirmChangesInPayment(@RequestParam(name = "payment_id", required = false, defaultValue = "0") int paymentId,
                                           @RequestParam(name = "payment_type", required = false, defaultValue = "") String paymentType,
                                           HttpServletRequest request, HttpServletResponse response, Model model) {
-        Cookie cookie = CookieUtil.getBankCookie(request, response);
-        if (cookie != null) {
-            UserEntity user = userDao.getUserById(Integer.valueOf(cookie.getValue()));
-            model.addAttribute("userName", user.getProfile().getLastName() + " " + user.getProfile().getFirstName());
-            if (user.getUserType() == Constants.UserType.BANK_EMPLOYEE) {
-                if (!Constants.Strings.EMPTY_STRING.equals(paymentType)) {
-                    PaymentEntity payment = paymentDao.getPaymentById(paymentId);
-                    payment.setType(paymentType);
-                    paymentDao.update(payment);
-                }
+        Cookie cookie = CookieUtil.getBankCookie(request);
+        UserEntity user = userDao.getUserById(Integer.valueOf(cookie.getValue()));
+        model.addAttribute("userName", UserUtil.getUserName(user));
+        if (user.getUserType() == Constants.UserType.BANK_EMPLOYEE) {
+            if (!Constants.Strings.EMPTY_STRING.equals(paymentType)) {
+                PaymentEntity payment = paymentDao.getPaymentById(paymentId);
+                payment.setType(paymentType);
+                paymentDao.update(payment);
             }
         }
-        RedirectUtil.RedirectToPage("/payments", userDao, request, response, model);
+        redirectHelper.RedirectToPage("/payments", request, response, model);
         return "/index";
     }
 
@@ -133,22 +129,22 @@ public class PaymentController {
         AccountEntity account = accountDao.getAccountByAccountNumber(paymentAccount);
         if (account != null) {
             account.setBalance(account.getBalance() - paymentSum);
-            accountDao.updateAccount(account);
+            accountDao.update(account);
             HistoryEntity historyEntity = new HistoryEntity();
             historyEntity.setAccount(account);
             historyEntity.setPayment(paymentDao.getPaymentById(paymentId));
             historyEntity.setDate(new Date());
             historyEntity.setSum(paymentSum);
-            historyDao.insert(historyEntity);
+            historyDao.save(historyEntity);
         }
-        RedirectUtil.RedirectToPage("/payments", userDao, request, response, model);
+        redirectHelper.RedirectToPage("/payments", request, response, model);
         return "/index";
     }
 
     @RequestMapping("/paymentCancel")
     public String paymentCancel(HttpServletRequest request, HttpServletResponse response, Model model) {
-        RedirectUtil.RedirectToPage("/payments", userDao, request, response, model);
+        redirectHelper.RedirectToPage("/payments", request, response, model);
         return "/index";
     }
-
+*/
 }

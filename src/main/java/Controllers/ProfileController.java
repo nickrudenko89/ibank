@@ -1,108 +1,78 @@
 package Controllers;
 
-import Daos.ProfileDao;
-import Daos.UserDao;
 import Entities.ProfileEntity;
 import Entities.UserEntity;
+import Forms.ChangeProfileForm;
+import Services.ProfileService;
 import Services.UserService;
-import Utils.Constants;
 import Utils.CookieUtil;
-import Utils.RedirectUtil;
+import Utils.RedirectHelper;
+import Utils.UserUtil;
+import Validators.ChangeProfileValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 @Controller
 public class ProfileController {
-    @Autowired
-    private UserDao userDao;
-    @Autowired
-    private ProfileDao profileDao;
+
     @Autowired
     private UserService userService;
+    @Autowired
+    private ProfileService profileService;
+    @Autowired
+    private RedirectHelper redirectHelper;
+    @Autowired
+    private ChangeProfileValidator changeProfileValidator;
+
 
     @RequestMapping("/profile")
-    public String showProfile(HttpServletRequest request, HttpServletResponse response, Model model) {
-        Cookie cookie = CookieUtil.getBankCookie(request, response);
-        if (cookie != null) {
-            ProfileEntity profile = profileDao.getProfileById(Integer.valueOf(cookie.getValue()));
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-            model.addAttribute("profile", profile);
-            model.addAttribute("userName", profile.getLastName() + " " + profile.getFirstName());
-            model.addAttribute("birthDate", dateFormat.format(profile.getBirthDate()));
-            model.addAttribute("path", "/resources/imported_html/profile.jsp");
-            return "/index";
-        }
-        return "/login";
+    public String showProfile(HttpServletRequest request, Model model) {
+        Cookie cookie = CookieUtil.getBankCookie(request);
+        ProfileEntity profile = profileService.getUserProfile(Integer.valueOf(cookie.getValue()));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        model.addAttribute("profile", profile);
+        model.addAttribute("userName", profile.getLastName() + " " + profile.getFirstName());
+        model.addAttribute("birthDate", dateFormat.format(profile.getBirthDate()));
+        model.addAttribute("path", "/resources/imported_html/profile.jsp");
+        return "/index";
     }
 
     @RequestMapping("/editProfile")
-    public String editProfile(HttpServletRequest request, HttpServletResponse response, Model model) {
-        Cookie cookie = CookieUtil.getBankCookie(request, response);
-        if (cookie != null) {
-            UserEntity user = userDao.getUserById(Integer.valueOf(cookie.getValue()));
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            ArrayList<Boolean> checkedFields = new ArrayList<Boolean>();
-            for (int counter = 0; counter < Constants.UserProfile.PROFILE_FIELDS_COUNT; counter++)
-                checkedFields.add(true);
-            model.addAttribute("checkedFields", checkedFields);
-            model.addAttribute("user", user);
-            model.addAttribute("userName", user.getProfile().getLastName() + " " + user.getProfile().getFirstName());
-            model.addAttribute("birthDate", dateFormat.format(user.getProfile().getBirthDate()));
-            model.addAttribute("path", "/resources/imported_html/edit_profile.jsp");
-            return "/index";
-        }
-        return "/login";
+    public String editProfile(HttpServletRequest request, Model model) {
+        Cookie cookie = CookieUtil.getBankCookie(request);
+        UserEntity user = userService.getLoggedUser(Integer.valueOf(cookie.getValue()));
+        model.addAttribute("userName", UserUtil.getUserName(user));
+        model.addAttribute("changeProfileForm", UserUtil.setUserToChangeProfileForm(user));
+        model.addAttribute("path", "/resources/imported_html/edit_profile.jsp");
+        return "/index";
     }
 
     @RequestMapping("/saveProfile")
-    public String saveProfile(@RequestParam(name = "password", required = false, defaultValue = "") String password,
-                              @RequestParam(name = "password_confirm", required = false, defaultValue = "") String passwordConfirm,
-                              @RequestParam(name = "first_name", required = false, defaultValue = "") String firstName,
-                              @RequestParam(name = "last_name", required = false, defaultValue = "") String lastName,
-                              @RequestParam(name = "birth_date", required = false, defaultValue = "") String birthDate,
-                              @RequestParam(name = "passport_number", required = false, defaultValue = "") String passportNumber,
-                              @RequestParam(name = "address", required = false, defaultValue = "") String address,
-                              @RequestParam(name = "telephone_number", required = false, defaultValue = "") String telephoneNumber,
-                              @RequestParam(name = "email", required = false, defaultValue = "") String email,
-                              HttpServletRequest request, HttpServletResponse response, Model model) {
-        Cookie cookie = CookieUtil.getBankCookie(request, response);
-        if (cookie != null) {
-            UserEntity user = userDao.getUserById(Integer.valueOf(cookie.getValue()));
-            if (!userService.checkNewProfile(password, passwordConfirm, firstName, lastName, birthDate, passportNumber, address, telephoneNumber, email, model)) {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                model.addAttribute("user", user);
-                model.addAttribute("userName", user.getProfile().getLastName() + " " + user.getProfile().getFirstName());
-                model.addAttribute("birthDate", dateFormat.format(user.getProfile().getBirthDate()));
-                model.addAttribute("path", "/resources/imported_html/edit_profile.jsp");
-                return "/index";
-            }
-            userService.changePassword(user, password, passwordConfirm);
-            userService.changeField(user, user.getProfile().getFirstName(), firstName, 1);
-            userService.changeField(user, user.getProfile().getLastName(), lastName, 2);
-            userService.changeField(user, user.getProfile().getBirthDate().toString().split(" ")[0], birthDate, 3);
-            userService.changeField(user, user.getProfile().getPassportNumber(), passportNumber, 4);
-            userService.changeField(user, user.getProfile().getAddress(), address, 5);
-            userService.changeField(user, user.getProfile().getTelephoneNumber(), telephoneNumber, 6);
-            userService.changeField(user, user.getProfile().getEmail(), email, 7);
-            userDao.update(user);
-            RedirectUtil.RedirectToPage("/profile", userDao, request, response, model);
+    public String saveProfile(HttpServletRequest request, HttpServletResponse response, Model model, ChangeProfileForm changeProfileForm, BindingResult result) {
+        Cookie cookie = CookieUtil.getBankCookie(request);
+        UserEntity user = userService.getLoggedUser(Integer.valueOf(cookie.getValue()));
+        changeProfileValidator.validate(changeProfileForm, result);
+        if (result.hasErrors()) {
+            model.addAttribute("userName", UserUtil.getUserName(user));
+            model.addAttribute("path", "/resources/imported_html/edit_profile.jsp");
             return "/index";
         }
-        return "/login";
+        userService.saveChangesToProfile(changeProfileForm,user);
+        redirectHelper.RedirectToPage("/profile", request, response, model);
+        return "/index";
     }
 
     @RequestMapping("/cancelProfile")
     public String cancelChangesInProfile(HttpServletRequest request, HttpServletResponse response, Model model) {
-        RedirectUtil.RedirectToPage("/profile", userDao, request, response, model);
+        redirectHelper.RedirectToPage("/profile", request, response, model);
         return "/index";
     }
 }

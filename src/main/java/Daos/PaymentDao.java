@@ -22,7 +22,7 @@ public class PaymentDao {
         return (PaymentEntity) query.uniqueResult();
     }
 
-    public List<PaymentEntity> getAllPayments() {
+    public List<PaymentEntity> getAll() {
         String messageHql = "FROM PaymentEntity";
         Query query = sessionFactory.getCurrentSession().createQuery(messageHql);
         return query.list();

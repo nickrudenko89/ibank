@@ -5,7 +5,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
     <mvc:annotation-driven>
     </mvc:annotation-driven>
-    <context:component-scan base-package="Controllers,Daos,Services">
+    <context:component-scan base-package="Controllers,Daos,Services,Validators,Utils">
     </context:component-scan>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -17,6 +17,7 @@
         <mvc:interceptor>
             <mvc:mapping path="/login"/>
             <mvc:mapping path="/register"/>
+            <mvc:mapping path="/logout"/>
             <mvc:mapping path="/profile"/>
             <mvc:mapping path="/editProfile"/>
             <mvc:mapping path="/saveProfile"/>
@@ -24,8 +25,8 @@
             <mvc:mapping path="/accounts"/>
             <mvc:mapping path="/openAccount"/>
             <mvc:mapping path="/closeAccount"/>
-            <mvc:mapping path="/createNewAccount"/>
-            <mvc:mapping path="/accountsQuery"/>
+            <mvc:mapping path="/openAccountProcess"/>
+            <mvc:mapping path="/accountOperationQuery"/>
             <mvc:mapping path="/payments"/>
             <mvc:mapping path="/doPayment"/>
             <mvc:mapping path="/editPaymentConfirm"/>
@@ -36,6 +37,11 @@
         <mvc:interceptor>
             <mvc:mapping path="/paymentConfirm"/>
             <bean id="paymentInterceptor" class="Interceptors.PaymentInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/closeAccount"/>
+            <mvc:mapping path="/openAccountProcess"/>
+            <bean id="accountOperationInterceptor" class="Interceptors.AccountOperationInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 

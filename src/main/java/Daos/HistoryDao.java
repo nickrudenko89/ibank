@@ -13,7 +13,7 @@ public class HistoryDao {
     @Resource(name = "sessionFactory")
     private SessionFactory sessionFactory;
 
-    public void insert(HistoryEntity historyEntity) {
+    public void save(HistoryEntity historyEntity) {
         sessionFactory.getCurrentSession().save(historyEntity);
     }
 

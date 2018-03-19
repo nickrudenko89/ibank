@@ -1,36 +1,69 @@
 package Services;
 
 import Daos.AccountDao;
-import Daos.UserDao;
 import Entities.AccountEntity;
+import Entities.UserEntity;
 import Utils.Constants;
-import Utils.RedirectUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Random;
 
 @Service
 public class AccountService {
-    public void moveAccountToOpened(UserDao userDao, AccountDao accountDao, int accountId, int accountStatus, HttpServletRequest request, HttpServletResponse response, Model model) {
-        AccountEntity account = accountDao.getAccountById(accountId);
-        if (account != null) {
-            if (account.getStatus() == accountStatus) {
-                account.setStatus(Constants.BankAccount.OPENED_ACCOUNT);
-                accountDao.updateAccount(account);
-            }
-        }
-        RedirectUtil.RedirectToPage("/accounts", userDao, request, response, model);
+
+    @Autowired
+    private AccountDao accountDao;
+
+    public List<AccountEntity> getClientAccountsByStatus(int status) {
+        return accountDao.getAccountsByStatus(status);
     }
 
-    public void deleteAccount(UserDao userDao, AccountDao accountDao, int accountId, int accountStatus, HttpServletRequest request, HttpServletResponse response, Model model) {
-        AccountEntity account = accountDao.getAccountById(accountId);
-        if (account != null) {
-            if (account.getStatus() == accountStatus) {
-                accountDao.deleteAccount(account);
-            }
+    public AccountEntity getUserAccountById(int id) {
+        return accountDao.getAccountById(id);
+    }
+
+    public boolean closeAccount(int id) {
+        AccountEntity account = getUserAccountById(id);
+        if (account.getBalance() != 0) {
+            return false;
+        } else {
+            account.setStatus(Constants.BankAccount.ACCOUNT_TO_CLOSE);
+            accountDao.update(account);
+            return true;
         }
-        RedirectUtil.RedirectToPage("/accounts", userDao, request, response, model);
+    }
+
+    public void openAccount(UserEntity owner, String accountCurrency) {
+        String accountNumber = accountCurrency;
+        do {
+            for (int counter = 1; counter <= Constants.BankAccount.ACCOUNT_NUMBER_LENGTH; counter++) {
+                Random randomNumber = new Random();
+                accountNumber += String.valueOf(randomNumber.nextInt(10));
+            }
+        } while (accountDao.getAccountByAccountNumber(accountNumber) != null);
+        AccountEntity account = new AccountEntity();
+        account.setAccountNumber(accountNumber);
+        account.setCurrency(accountCurrency);
+        account.setBalance(0);
+        account.setStatus(Constants.BankAccount.ACCOUNT_TO_OPEN);
+        account.setUser(owner);
+        accountDao.save(account);
+    }
+
+    public void moveAccountToOpened(int accountId, int accountStatus) {
+        AccountEntity account = accountDao.getAccountById(accountId);
+        if (account.getStatus() == accountStatus) {
+            account.setStatus(Constants.BankAccount.OPENED_ACCOUNT);
+            accountDao.update(account);
+        }
+    }
+
+    public void deleteAccount(int accountId, int accountStatus) {
+        AccountEntity account = accountDao.getAccountById(accountId);
+        if (account.getStatus() == accountStatus) {
+            accountDao.delete(account);
+        }
     }
 }

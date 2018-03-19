@@ -11,8 +11,8 @@
             </div>
             <div class="account" id="${account.id}" style="display: inline-block">
                 <span style="margin-left: 10px">${account.accountNumber}</span>
-                <a class="button_close_account" href="/accountsQuery?action=refuse_to_open&id=${account.id}">×</a>
-                <a class="button_open_account" href="/accountsQuery?action=apply_to_open&id=${account.id}">✓</a>
+                <a class="button_close_account" href="/accountOperationQuery?action=refuse_to_open&id=${account.id}">×</a>
+                <a class="button_open_account" href="/accountOperationQuery?action=apply_to_open&id=${account.id}">✓</a>
             </div>
         </c:forEach>
         <div class="request">
@@ -25,8 +25,8 @@
             <div class="account" id="${account.id}" style="display: inline-block">
                 <span style="margin-left: 10px">${account.accountNumber}</span>
                 <span style="margin-left: 230px; font-size: 14px">Остаток: ${account.balance}</span>
-                <a class="button_close_account" href="/accountsQuery?action=refuse_to_close&id=${account.id}">×</a>
-                <a class="button_open_account" href="/accountsQuery?action=apply_to_close&id=${account.id}">✓</a>
+                <a class="button_close_account" href="/accountOperationQuery?action=refuse_to_close&id=${account.id}">×</a>
+                <a class="button_open_account" href="/accountOperationQuery?action=apply_to_close&id=${account.id}">✓</a>
             </div>
         </c:forEach>
     </c:if>

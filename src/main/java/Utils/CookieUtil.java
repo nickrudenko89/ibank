@@ -3,6 +3,8 @@ package Utils;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CookieUtil {
     public static void setCookie(Cookie cookie, int cookieLifetime, HttpServletResponse response) {
@@ -10,21 +12,12 @@ public class CookieUtil {
         response.addCookie(cookie);
     }
 
-    public static Cookie getBankCookie(HttpServletRequest request, HttpServletResponse response) {
+    public static Cookie getBankCookie(HttpServletRequest request) {
+        Map<String, Cookie> cookieMap = new HashMap<String, Cookie>();
         Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (Constants.Cookies.USER_ID_COOKIE_NAME.equals(cookie.getName()) && cookie.getValue().length() > 0) {
-                    try {
-                        if (Integer.valueOf(cookie.getValue()) > 0)
-                            return cookie;
-                    } catch (Exception ex) {
-                        setCookie(cookie, Constants.Cookies.COOKIE_EXPIRE_TIME, response);
-                        break;
-                    }
-                }
-            }
+        for (Cookie cookie : cookies) {
+            cookieMap.put(cookie.getName(), cookie);
         }
-        return null;
+        return cookieMap.get(Constants.Cookies.USER_ID_COOKIE_NAME);
     }
 }

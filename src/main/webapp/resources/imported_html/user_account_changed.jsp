@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="request">
     <c:if test="${action == 'open'}">
-        <form action="/createNewAccount" method="post">
+        <form action="/openAccountProcess" method="post">
             <label for="currency_input">Открытие счета</label>
             <select id="currency_input" class="currency_input" name="currency">
                 <option disabled selected>Выберите вылюту счета</option>

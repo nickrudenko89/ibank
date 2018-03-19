@@ -12,16 +12,29 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AuthorizationInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        if (!Constants.ApplicationPages.LOGIN_PAGE.equals(httpServletRequest.getServletPath()) && !Constants.ApplicationPages.REGISTER_PAGE.equals(httpServletRequest.getServletPath())) {
-            Cookie cookie = CookieUtil.getBankCookie(httpServletRequest, httpServletResponse);
-            if (cookie != null) {
-                CookieUtil.setCookie(cookie, Constants.Cookies.COOKIE_LIFETIME, httpServletResponse);
+        if (HttpMethod.GET.toString().equals(httpServletRequest.getMethod())) {
+            if (Constants.ApplicationPages.REGISTER_PAGE.equals(httpServletRequest.getServletPath())) {
                 return true;
+            } else {
+                Cookie[] cookies = httpServletRequest.getCookies();
+                if (cookies != null) {
+                    for (Cookie cookie : cookies) {
+                        if (Constants.Cookies.USER_ID_COOKIE_NAME.equals(cookie.getName()) && cookie.getValue().length() > 0) {
+                            try {
+                                if (Integer.valueOf(cookie.getValue()) > 0) {
+                                    CookieUtil.setCookie(cookie, Constants.Cookies.COOKIE_LIFETIME, httpServletResponse);
+                                    return true;
+                                }
+                            } catch (Exception ex) {
+                                CookieUtil.setCookie(cookie, Constants.Cookies.COOKIE_EXPIRE_TIME, httpServletResponse);
+                                break;
+                            }
+                        }
+                    }
+                }
             }
-        } else {
-            if (HttpMethod.POST.toString().equals(httpServletRequest.getMethod())) {
-                return true;
-            }
+        } else if (HttpMethod.POST.toString().equals(httpServletRequest.getMethod())) {
+            return true;
         }
         httpServletResponse.sendRedirect("/");
         return false;

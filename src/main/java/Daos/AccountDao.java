@@ -36,15 +36,15 @@ public class AccountDao {
         return query.list();
     }
 
-    public void updateAccount(AccountEntity account) {
+    public void update(AccountEntity account) {
         sessionFactory.getCurrentSession().update(account);
     }
 
-    public void insertAccount(AccountEntity account) {
+    public void save(AccountEntity account) {
         sessionFactory.getCurrentSession().save(account);
     }
 
-    public void deleteAccount(AccountEntity account) {
+    public void delete(AccountEntity account) {
         sessionFactory.getCurrentSession().delete(account);
     }
 }

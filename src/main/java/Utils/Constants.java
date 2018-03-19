@@ -10,6 +10,9 @@ public final class Constants {
     public static final class ApplicationPages {
         public static final String LOGIN_PAGE = "/login";
         public static final String REGISTER_PAGE = "/register";
+        public static final String CLOSE_ACCOUNT_PAGE = "/closeAccount";
+        public static final String OPEN_ACCOUNT_PAGE = "/openAccountProcess";
+        public static final String ACCOUNT_OPERATION_QUERY_PAGE = "/accountOperationQuery";
     }
 
     public static final class Errors {
@@ -32,10 +35,6 @@ public final class Constants {
         public static final String THREE = "3";
     }
 
-    public static final class UserProfile {
-        public static final int PROFILE_FIELDS_COUNT = 8;
-    }
-
     public static final class BankAccount {
         public static final int OPENED_ACCOUNT = 1;
         public static final int ACCOUNT_TO_OPEN = 2;
@@ -44,8 +43,4 @@ public final class Constants {
         public static final int ACCOUNT_NUMBER_LENGTH = 10;
     }
 
-    public static final class UserType {
-        public static final int BANK_EMPLOYEE = 1;
-        public static final int BANK_CLIENT = 2;
-    }
 }

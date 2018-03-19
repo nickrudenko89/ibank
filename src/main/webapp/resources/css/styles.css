@@ -267,7 +267,6 @@ hr {
     border: 1px #d1e7dc solid;
     font-size: 18px;
     color: #000000;
-    margin-top: 20px;
     margin-right: 80px;
     float: right;
     font-family: Arial, sans-serif;
@@ -276,7 +275,6 @@ hr {
 .edit_profile_label {
     float: left;
     margin-left: 80px;
-    margin-top: 20px;
 }
 
 .button_save {
@@ -461,5 +459,14 @@ hr {
     float: right;
     height: 34px;
     line-height: 34px;
-    color: black
+    color: black;
+}
+
+.edit_profile_field_error {
+    margin-left: 10px;
+    height: 20px;
+    line-height: 40px;
+    color: red;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
 }

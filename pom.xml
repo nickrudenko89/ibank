@@ -7,67 +7,81 @@
     <version>1.0-SNAPSHOT</version>
     <name>ibank Maven Webapp</name>
     <url>http://maven.apache.org</url>
+
+    <properties>
+        <junit.version>3.8.1</junit.version>
+        <spring-core.version>4.3.8.RELEASE</spring-core.version>
+        <spring-webmvc.version>4.3.8.RELEASE</spring-webmvc.version>
+        <spring-context.version>4.3.8.RELEASE</spring-context.version>
+        <jstl.version>1.2</jstl.version>
+        <javax-servlet-api.version>4.0.0</javax-servlet-api.version>
+        <mysql-connector-java.version>6.0.6</mysql-connector-java.version>
+        <hibernate-core.version>5.2.13.Final</hibernate-core.version>
+        <spring-jdbc.version>5.0.3.RELEASE</spring-jdbc.version>
+        <spring-orm.version>5.0.3.RELEASE</spring-orm.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.1</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>4.3.8.RELEASE</version>
+            <version>${spring-core.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>4.3.8.RELEASE</version>
+            <version>${spring-webmvc.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>4.3.8.RELEASE</version>
+            <version>${spring-context.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-            <version>1.2</version>
+            <version>${jstl.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.0</version>
+            <version>${javax-servlet-api.version}</version>
             <scope>provided</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>6.0.6</version>
+            <version>${mysql-connector-java.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.2.13.Final</version>
+            <version>${hibernate-core.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>5.0.3.RELEASE</version>
+            <version>${spring-jdbc.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
-            <version>5.0.3.RELEASE</version>
+            <version>${spring-orm.version}</version>
         </dependency>
     </dependencies>
     <build>
