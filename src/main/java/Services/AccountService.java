@@ -24,6 +24,15 @@ public class AccountService {
         return accountDao.getAccountById(id);
     }
 
+    public AccountEntity getUserAccountByAccountNumber(String accountNumber) {
+        return accountDao.getAccountByAccountNumber(accountNumber);
+    }
+
+    public void makePayment(AccountEntity account, float paymentSum) {
+        account.setBalance(account.getBalance() - paymentSum);
+        accountDao.update(account);
+    }
+
     public boolean closeAccount(int id) {
         AccountEntity account = getUserAccountById(id);
         if (account.getBalance() != 0) {

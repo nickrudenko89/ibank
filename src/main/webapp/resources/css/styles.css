@@ -107,11 +107,44 @@ hr {
     margin-top: 10px;
 }
 
+#cheque_wrapper {
+    width: 390px;
+    background: #EEEEEE;
+    padding: 25px;
+    margin-top: 10px;
+    font-family: Courier, sans-serif;
+    color: black;
+}
+
+#cheque_header {
+    text-align: center;
+    font-size: 16px;
+}
+
+#cheque_body {
+    font-size: 14px;
+}
+
+#cheque_footer {
+    text-align: center;
+    font-size: 12px;
+}
+
 #button_history {
     background: #E8AF3E;
     border: none;
     border-bottom: 7px #DF9B14 solid;
     margin-bottom: 25px;
+}
+
+#history_menu {
+    padding-bottom: 2px;
+}
+
+#history_wrapper {
+    margin-top: 10px;
+    background: #EEEEEE;
+    width: 600px;
 }
 
 .logo {
@@ -315,6 +348,23 @@ hr {
     margin-bottom: 20px;
 }
 
+.button_apply {
+    width: 120px;
+    height: 29px;
+    font-size: 14px;
+    color: #FFFFFF;
+    line-height: 29px;
+    text-align: center;
+    background: #52AE41;
+    border: none;
+    border-bottom: 7px #018435 solid;
+    display: inline-block;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    float: right;
+}
+
 .account {
     width: 610px;
     height: 50px;
@@ -469,4 +519,49 @@ hr {
     color: red;
     font-family: Arial, sans-serif;
     font-size: 14px;
+}
+
+.do_payment_field_error {
+    line-height: 10px;
+    height: 10px;
+    color: red;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+}
+
+.history_label {
+    float: left;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    width: 30px;
+}
+
+.history_input {
+    width: 333px;
+    height: 25px;
+    line-height: 25px;
+    border: 1px #d1e7dc solid;
+    font-size: 12px;
+    color: #000000;
+    float: left;
+    font-family: Arial, sans-serif;
+    padding-left: 10px;
+}
+
+.history_item {
+    padding: 10px;
+    border-bottom: 1px #018435 solid;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.history_item_details {
+    padding-top: 10px;
+}
+
+.history_details_button {
+    color: black;
+    border: none;
+    display: block;
+    cursor: pointer;
 }

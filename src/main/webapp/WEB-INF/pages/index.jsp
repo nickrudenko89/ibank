@@ -4,6 +4,7 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <script type="text/javascript" src="/resources/js/timer.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
     <link rel="SHORTCUT ICON" href="/resources/icons/favicon.ico" type="image/x-icon">
     <link href="<c:url value="/resources/css/styles.css"/>" type="text/css" rel="stylesheet">
     <title>Система «Интернет-банкинг»</title>

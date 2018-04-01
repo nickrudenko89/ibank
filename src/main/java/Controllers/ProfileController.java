@@ -39,7 +39,7 @@ public class ProfileController {
         ProfileEntity profile = profileService.getUserProfile(Integer.valueOf(cookie.getValue()));
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         model.addAttribute("profile", profile);
-        model.addAttribute("userName", profile.getLastName() + " " + profile.getFirstName());
+        model.addAttribute("userName", profile.getFirstName() + " " + profile.getLastName());
         model.addAttribute("birthDate", dateFormat.format(profile.getBirthDate()));
         model.addAttribute("path", "/resources/imported_html/profile.jsp");
         return "/index";
@@ -65,7 +65,7 @@ public class ProfileController {
             model.addAttribute("path", "/resources/imported_html/edit_profile.jsp");
             return "/index";
         }
-        userService.saveChangesToProfile(changeProfileForm,user);
+        userService.saveChangesToProfile(changeProfileForm, user);
         redirectHelper.RedirectToPage("/profile", request, response, model);
         return "/index";
     }

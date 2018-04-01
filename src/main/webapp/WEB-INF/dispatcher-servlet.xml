@@ -32,16 +32,25 @@
             <mvc:mapping path="/editPaymentConfirm"/>
             <mvc:mapping path="/paymentConfirm"/>
             <mvc:mapping path="/paymentCancel"/>
+            <mvc:mapping path="/cheque"/>
+            <mvc:mapping path="/showHistory"/>
             <bean id="authorizationInterceptor" class="Interceptors.AuthorizationInterceptor"/>
         </mvc:interceptor>
         <mvc:interceptor>
+            <mvc:mapping path="/doPayment"/>
+            <mvc:mapping path="/editPaymentConfirm"/>
             <mvc:mapping path="/paymentConfirm"/>
+            <mvc:mapping path="/cheque"/>
             <bean id="paymentInterceptor" class="Interceptors.PaymentInterceptor"/>
         </mvc:interceptor>
         <mvc:interceptor>
             <mvc:mapping path="/closeAccount"/>
             <mvc:mapping path="/openAccountProcess"/>
             <bean id="accountOperationInterceptor" class="Interceptors.AccountOperationInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/showHistory"/>
+            <bean id="historyInterceptor" class="Interceptors.HistoryInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 

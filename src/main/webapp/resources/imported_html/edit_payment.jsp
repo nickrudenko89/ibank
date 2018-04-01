@@ -10,7 +10,7 @@
                 </td>
                 <td>
                     <input id="payment_type" class="payment_input" type="text" name="payment_type"
-                           value="${payment.type}">
+                           value="${payment.type}" required>
                 </td>
             </tr>
         </table>

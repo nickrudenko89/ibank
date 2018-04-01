@@ -1,7 +1,5 @@
 package Forms;
 
-import java.util.Date;
-
 public class ChangeProfileForm {
 
     private String login;

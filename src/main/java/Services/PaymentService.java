@@ -2,7 +2,6 @@ package Services;
 
 import Daos.PaymentDao;
 import Entities.PaymentEntity;
-import Utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +17,14 @@ public class PaymentService {
         return paymentDao.getAll();
     }
 
-    public String getPaymentErrorById(String id) {
-        if (Constants.Strings.ONE.equals(id))
-            return Constants.Errors.PAYMENT_SUM_ERROR;
-        else if (Constants.Strings.TWO.equals(id))
-            return Constants.Errors.NOT_ENOUGH_MONEY_ERROR;
-        else if (Constants.Strings.THREE.equals(id))
-            return Constants.Errors.INCORRECT_ACCOUNT_ERROR;
-        else
-            return "";
+    public PaymentEntity getPaymentById(int paymentId) {
+        return paymentDao.getPaymentById(paymentId);
     }
+
+    public void saveChangesToPayment(int paymentId, String paymentType) {
+        PaymentEntity payment = getPaymentById(paymentId);
+        payment.setType(paymentType);
+        paymentDao.update(payment);
+    }
+
 }
